@@ -4,7 +4,7 @@ const router = express.Router()
 const sendEmail = require('../utils/sendgrid.js')
 
 
-router.post('/sendemail', async (req, res) => {
+const preparedEmail = (req, res) => {
   const from = 'dennisvillagaray95@gmail.com'
 
   const {
@@ -33,8 +33,8 @@ router.post('/sendemail', async (req, res) => {
   const isFather = nombre_padres != "" & nombre_padres != null ? `<strong>Nombre Padres: </strong>${nombre_padres}<br>` : null
 
   const output = `
-    <strong>Fecha Creacion: </strong>" ${fecha_creacion}<br>
-    <strong>Serie: </strong>${correlativo}<br>
+    <strong>Fecha Creacion: </strong> ${fecha_creacion}<br>
+    <strong>Serie: </strong> N° ${correlativo}<br>
     <strong>Dni: </strong>"${dni_ce}<br>
     <strong>Nombre y Apellidos: </strong> ${nombre_apellido} <br>
     ${isFather}
@@ -51,6 +51,6 @@ router.post('/sendemail', async (req, res) => {
     <strong>Pedido Consumidor: </strong>${pedido_consumidor}<br>
     `
   sendEmail(email, from, subject, output, res)
-})
+}
 
-module.exports = router
+module.exports = preparedEmail
