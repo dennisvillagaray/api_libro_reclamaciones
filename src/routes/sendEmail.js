@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router()
 
+const emailFrom = const dbPassword = process.env.EMAIL
+
 const sendEmail = require('../utils/sendgrid.js')
 
 
 const preparedEmail = (req, res) => {
-  const from = 'dennisvillagaray95@gmail.com'
-
+  
   const {
     correlativo,
     bien_contratado_id,
@@ -50,7 +51,7 @@ const preparedEmail = (req, res) => {
     <strong>Detalle Reclamo: </strong>${detalle_reclamo}<br>
     <strong>Pedido Consumidor: </strong>${pedido_consumidor}<br>
     `
-  sendEmail(email, from, subject, output, res)
+  sendEmail(email, emailFrom, subject, output, res)
 }
 
 module.exports = preparedEmail
